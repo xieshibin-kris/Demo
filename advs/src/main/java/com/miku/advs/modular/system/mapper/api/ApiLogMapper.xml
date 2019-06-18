@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.api.ApiLogMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.api.ApiLog">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="errMessage" jdbcType="VARCHAR" property="errmessage" />
+    <result column="errType" jdbcType="INTEGER" property="errtype" />
+    <result column="appVersionCode" jdbcType="VARCHAR" property="appversioncode" />
+    <result column="sdkVersionCode" jdbcType="VARCHAR" property="sdkversioncode" />
+    <result column="channelId" jdbcType="INTEGER" property="channelid" />
+    <result column="createTime" jdbcType="BIGINT" property="createtime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from rtdb_api_log
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.api.ApiLog">
+    insert into rtdb_api_log (uuid, errMessage, errType, 
+      appVersionCode, sdkVersionCode, channelId, 
+      createTime)
+    values (#{uuid,jdbcType=VARCHAR}, #{errmessage,jdbcType=VARCHAR}, #{errtype,jdbcType=INTEGER}, 
+      #{appversioncode,jdbcType=VARCHAR}, #{sdkversioncode,jdbcType=VARCHAR}, #{channelid,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.api.ApiLog">
+    update rtdb_api_log
+    set errMessage = #{errmessage,jdbcType=VARCHAR},
+      errType = #{errtype,jdbcType=INTEGER},
+      appVersionCode = #{appversioncode,jdbcType=VARCHAR},
+      sdkVersionCode = #{sdkversioncode,jdbcType=VARCHAR},
+      channelId = #{channelid,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=BIGINT}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select uuid, errMessage, errType, appVersionCode, sdkVersionCode, channelId, createTime
+    from rtdb_api_log
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select uuid, errMessage, errType, appVersionCode, sdkVersionCode, channelId, createTime
+    from rtdb_api_log
+  </select>
+</mapper>

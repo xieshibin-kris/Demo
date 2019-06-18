@@ -1,0 +1,46 @@
+@layout("/common/_container.html",{bg:"bg-white" ,all:"yes",js:["/assets/modular/system/set/set.js" ]}){
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">全局配置</span>
+</div>
+
+<div style="margin:0px;">
+    <div class="layui-field-box">
+        <form id="setForm" lay-filter="setForm" class="layui-form model-form" style="padding: 0px;" >
+            <div class="layui-tab layui-tab-card">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">基本设置</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-collapse" lay-accordion="" style="margin-top:10px">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">接口</h2>
+                                <div class="layui-colla-content layui-show">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label" style="width:150px;">客户端接口请求周期(秒)</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="apiRequestInterval"
+                                                   id="apiRequestInterval" autocomplete="off" value="${sets['apiRequestInterval']}" class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-foot">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="confirm">保存</button>
+                        &nbsp&nbsp&nbsp&nbsp
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="${ctxPath}/assets/common/layui/layui.all.js"></script>
+@}

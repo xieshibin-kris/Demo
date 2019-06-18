@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.api.UuidInfoMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.api.UuidInfo">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="imei" jdbcType="VARCHAR" property="imei" />
+    <result column="imsi" jdbcType="VARCHAR" property="imsi" />
+    <result column="factory" jdbcType="VARCHAR" property="factory" />
+    <result column="sdkVersion" jdbcType="VARCHAR" property="sdkversion" />
+    <result column="channelId" jdbcType="INTEGER" property="channelid" />
+    <result column="totalSpaceSize" jdbcType="BIGINT" property="totalspacesize" />
+    <result column="cardSpaceSize" jdbcType="BIGINT" property="cardspacesize" />
+    <result column="rate" jdbcType="VARCHAR" property="rate" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="packageName" jdbcType="VARCHAR" property="packagename" />
+    <result column="appVersion" jdbcType="VARCHAR" property="appversion" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="createtime" jdbcType="BIGINT" property="createtime" />
+
+
+  </resultMap>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.api.UuidInfo">
+    insert into rtdb_uuidinfo ( uuid, imei,
+      imsi, factory, sdkVersion, 
+      channelId, totalSpaceSize, cardSpaceSize, 
+      rate, model, packageName, 
+      appVersion, mac, createtime ,osversion,ip)
+    values (  #{uuid,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR},
+      #{imsi,jdbcType=VARCHAR}, #{factory,jdbcType=VARCHAR}, #{sdkversion,jdbcType=VARCHAR}, 
+      #{channelid,jdbcType=INTEGER}, #{totalspacesize,jdbcType=BIGINT}, #{cardspacesize,jdbcType=BIGINT}, 
+      #{rate,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{packagename,jdbcType=VARCHAR}, 
+      #{appversion,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, #{osversion,jdbcType=INTEGER},#{ip,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <select id="selectByUuid" resultMap="BaseResultMap">
+    select id, uuid, imei, imsi, factory, sdkVersion, channelId, totalSpaceSize, cardSpaceSize,
+    rate, model, packageName, appVersion, mac, createtime,osversion,ip
+    from rtdb_uuidinfo
+    where uuid = #{uuid}
+  </select>
+
+  <select id="selectAll" resultType="map">
+    select id, uuid, imei, imsi, factory, sdkVersion, channelId, totalSpaceSize, cardSpaceSize, 
+    rate, model, packageName, appVersion, mac, createtime,osversion,ip
+    from rtdb_uuidinfo
+    where 1=1
+    <if test="uuid != null and uuid != ''">
+      and uuid = #{uuid}
+    </if>
+    <if test="channelId != null and channelId != 0">
+      and channelId = #{channelId}
+    </if>
+  </select>
+  <select id="selectnewUserCount" resultType="map">
+    select COUNT(UUID) AS newUserCount ,FROM_UNIXTIME(createTime/1000,'%Y-%m-%d') date ,channelId,(SELECT COUNT(1) FROM `rtdb_uuidinfo`) AS userCount
+    from rtdb_uuidinfo
+    where 1=1
+    <if test="channelId != null and channelId != 0">
+      and channelId = #{channelId}
+    </if>
+    <if test="startTime != null and startTime != 0">
+      and createTime &gt;= #{startTime}
+    </if>
+    <if test="endTime != null and endTime != 0">
+      and createTime &lt;= #{endTime}
+    </if>
+    group by date,channelId
+  </select>
+
+</mapper>

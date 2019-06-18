@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.channel.ChannelWithdrawRecordMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.channel.ChannelWithdrawRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channelId" jdbcType="INTEGER" property="channelid" />
+    <result column="predictIncome" jdbcType="DECIMAL" property="predictincome" />
+    <result column="realIncome" jdbcType="DECIMAL" property="realincome" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createTime" jdbcType="BIGINT" property="createtime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from rtdb_channel_withdraw_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.channel.ChannelWithdrawRecord">
+    insert into rtdb_channel_withdraw_record (  account, predictIncome,
+      realIncome, remark, createTime
+      )
+    values (  #{account,jdbcType=VARCHAR}, #{predictincome,jdbcType=DECIMAL},
+      #{realincome,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.channel.ChannelWithdrawRecord">
+    update rtdb_channel_withdraw_record
+    set
+      account = #{account,jdbcType=VARCHAR},
+      predictIncome = #{predictincome,jdbcType=DECIMAL},
+      realIncome = #{realincome,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, account, predictIncome, realIncome, remark, createTime
+    from rtdb_channel_withdraw_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultType="map">
+    select id, account, predictIncome, realIncome, remark, createTime
+    from rtdb_channel_withdraw_record
+    where 1=1
+    <if test="account != null and account != ''">
+      and account like concat('%',#{account },'%')
+    </if>
+    <if test="startTime != null and startTime != 0L">
+      and createTime >= #{startTime }
+    </if>
+    <if test="endTime != null and endTime != 0L">
+      and createTime &lt;= #{endTime }
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.api.ShowStatisticMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.api.ShowStatistic">
+    <id column="date" jdbcType="DATE" property="date" />
+    <id column="channelId" jdbcType="INTEGER" property="channelid" />
+    <id column="advertiseId" jdbcType="VARCHAR" property="advertiseid" />
+    <result column="requestCount" jdbcType="INTEGER" property="requestcount" />
+    <result column="showCount" jdbcType="INTEGER" property="showcount" />
+    <result column="clickCount" jdbcType="INTEGER" property="clickcount" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from rtdb_show_statistic
+    where date = #{date,jdbcType=DATE}
+      and channelId = #{channelid,jdbcType=INTEGER}
+      and advertiseId = #{advertiseid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.api.ShowStatistic">
+    insert into rtdb_show_statistic (date, channelId, advertiseId, 
+      requestCount, showCount,
+      clickCount)
+    values (#{date,jdbcType=DATE}, #{channelid,jdbcType=INTEGER}, #{advertiseid,jdbcType=VARCHAR}, 
+      #{requestcount,jdbcType=INTEGER}, #{showcount,jdbcType=INTEGER},
+      #{clickcount,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.api.ShowStatistic">
+    update rtdb_show_statistic
+    set requestCount = #{requestcount,jdbcType=INTEGER},
+      showCount = #{showcount,jdbcType=INTEGER},
+      clickCount = #{clickcount,jdbcType=INTEGER}
+    where date = #{date,jdbcType=DATE}
+      and channelId = #{channelid,jdbcType=INTEGER}
+      and advertiseId = #{advertiseid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select date, channelId, advertiseId, requestCount, showCount, clickCount
+    from rtdb_show_statistic
+    where date = #{date,jdbcType=DATE}
+      and channelId = #{channelid,jdbcType=INTEGER}
+      and advertiseId = #{advertiseid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultType="map">
+    select date, channelId, advertiseId, requestCount, showCount, clickCount
+    from rtdb_show_statistic
+    where 1=1
+    <if test="channelId != null and channelId != 0">
+      and channelId = #{channelId,jdbcType=INTEGER}
+    </if>
+    <if test="advertiseId != null and advertiseId != 0">
+      and advertiseId = #{advertiseId,jdbcType=VARCHAR}
+    </if>
+    <if test="startDate != null and startDate != ''">
+      and date >= #{startDate}
+    </if>
+    <if test="endDate != null and endDate != ''">
+      and date &lt;= #{endDate}
+    </if>
+  </select>
+
+  <update id="updateBySum" parameterType="com.miku.advs.modular.system.entity.api.ShowStatistic">
+    update rtdb_show_statistic
+    set requestCount = requestCount + #{requestcount,jdbcType=INTEGER},
+      showCount = showCount + #{showcount,jdbcType=INTEGER},
+      clickCount = clickCount + #{clickcount,jdbcType=INTEGER}
+    where date = #{date,jdbcType=DATE}
+      and channelId = #{channelid,jdbcType=INTEGER}
+      and advertiseId = #{advertiseid,jdbcType=VARCHAR}
+  </update>
+</mapper>

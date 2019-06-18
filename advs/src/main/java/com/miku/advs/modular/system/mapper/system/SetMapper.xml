@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.system.SetMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.system.set.Set">
+    <id column="filed" jdbcType="VARCHAR" property="filed" />
+    <result column="value" jdbcType="LONGVARCHAR" property="value" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from rtdb_set
+    where filed = #{filed,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.system.set.Set">
+    insert into rtdb_set (filed, value)
+    values (#{filed,jdbcType=VARCHAR}, #{value,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.system.set.Set">
+    update rtdb_set
+    set value = #{value,jdbcType=LONGVARCHAR}
+    where filed = #{filed,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select filed, value
+    from rtdb_set
+    where filed = #{filed,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select filed, value
+    from rtdb_set
+  </select>
+</mapper>

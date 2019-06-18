@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.channel.DeviceStatusMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.channel.DeviceStatus">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="createTime" jdbcType="BIGINT" property="createtime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from rtdb_user_white
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.channel.DeviceStatus">
+    insert into rtdb_user_white (  uuid, status,remark,
+      createTime)
+    values (  #{uuid,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT},#{remark,jdbcType=VARCHAR},
+      #{createtime,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.channel.DeviceStatus">
+    update rtdb_user_white
+    set
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, uuid, status, createTime,remark
+    from rtdb_user_white
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultType="map">
+    select id, uuid, status, createTime,remark
+    from rtdb_user_white
+    <if test="uuid != null and uuid != ''">
+      where uuid like concat('%',#{uuid},'%')
+    </if>
+  </select>
+</mapper>

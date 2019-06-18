@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.advertise.AdvRuleMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.advertise.AdvRule">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dayShowCount" jdbcType="INTEGER" property="dayshowcount" />
+    <result column="timeRange" jdbcType="VARCHAR" property="timerange" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rtdb_adv_rule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.advertise.AdvRule">
+    insert into rtdb_adv_rule (  dayShowCount, timeRange,
+      country, version, remark, 
+      createTime, updateTime)
+    values (  #{dayshowcount,jdbcType=INTEGER}, #{timerange,jdbcType=VARCHAR},
+      #{country,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.advertise.AdvRule">
+    update rtdb_adv_rule
+    set dayShowCount = #{dayshowcount,jdbcType=INTEGER},
+      timeRange = #{timerange,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, dayShowCount, timeRange, country, version, remark, createTime, updateTime
+    from rtdb_adv_rule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultType="map">
+    select id, dayShowCount, timeRange, country, version, remark, createTime, updateTime
+    from rtdb_adv_rule
+    <if test="id != null and id != 0">
+      WHERE id = #{id}
+    </if>
+
+  </select>
+  <select id="selectAllRules" resultMap="BaseResultMap">
+    select id, dayShowCount, timeRange, country, version, remark, createTime, updateTime
+    from rtdb_adv_rule
+  </select>
+
+</mapper>

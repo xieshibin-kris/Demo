@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.advertise.AdvertiserHostMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.advertise.AdvertiserHost">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="mode" jdbcType="INTEGER" property="mode" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rtdb_advertiser
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.advertise.AdvertiserHost">
+    insert into rtdb_advertiser ( name, type,
+      mode, remark, createTime
+      )
+    values ( #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+      #{mode,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.advertise.AdvertiserHost">
+    update rtdb_advertiser
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      mode = #{mode,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, name, type, mode, remark, createTime
+    from rtdb_advertiser
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, type, mode, remark, createTime
+    from rtdb_advertiser
+  </select>
+
+  <select id="selectAdvertisers" resultType="map" >
+    select id , name, type, mode, remark, createTime
+    from rtdb_advertiser
+    where 1=1
+    <if test="id != null and id != 0 ">
+     AND  id = #{id}
+    </if>
+    <if test="name != null and name != '' ">
+     AND name like CONCAT('%',#{name},'%')
+    </if> order by id desc
+  </select>
+
+</mapper>

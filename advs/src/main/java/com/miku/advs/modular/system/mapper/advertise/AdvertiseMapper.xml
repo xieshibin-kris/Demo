@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.advertise.AdvertiseMapper">
+    <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.advertise.Advertise">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="channelId" jdbcType="INTEGER" property="channelid"/>
+        <result column="advertiserId" jdbcType="INTEGER" property="advertiserid"/>
+        <result column="ruleId" jdbcType="INTEGER" property="ruleid"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="adPosition" jdbcType="INTEGER" property="adposition"/>
+        <result column="adType" jdbcType="INTEGER" property="adtype"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="updateTime" jdbcType="BIGINT" property="updatetime"/>
+        <result column="createTime" jdbcType="BIGINT" property="createtime"/>
+        <result column="weight" jdbcType="INTEGER" property="weight"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from rtdb_adv
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.miku.advs.modular.system.entity.advertise.Advertise">
+    insert into rtdb_adv (id,  channelId, advertiserId,ruleId,
+      name, status, adPosition, 
+        adType,  remark, updateTime, createTime,weight,url
+      )
+    values ( #{id,jdbcType=VARCHAR}, #{channelid,jdbcType=INTEGER}, #{advertiserid,jdbcType=INTEGER},
+      #{ruleid,jdbcType=INTEGER},
+      #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{adposition,jdbcType=INTEGER}, 
+      #{adtype,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{updatetime,jdbcType=BIGINT},
+       #{createtime,jdbcType=BIGINT}, #{weight,jdbcType=INTEGER},#{url}
+      )
+  </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.advertise.Advertise">
+    update rtdb_adv set name = #{name,jdbcType=VARCHAR},
+      channelId = #{channelid,jdbcType=INTEGER},
+      advertiserId = #{advertiserid,jdbcType=INTEGER},
+      ruleId = #{ruleid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      adPosition = #{adposition,jdbcType=INTEGER},
+      adType = #{adtype,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=INTEGER},
+      url = #{url}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, channelId, advertiserId, name, status, adPosition, adType,ruleId,
+     remark, updateTime, createTime,weight,url
+    from rtdb_adv
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+    <select id="getListByCid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select id, channelId, advertiserId, name, status, adPosition, adType,ruleId,
+        weight,remark, updateTime, createTime
+        from rtdb_adv
+        where channelId = #{cid,jdbcType=INTEGER}
+    </select>
+    <select id="selectAdvertises" resultType="map">
+        select id, channelId, advertiserId, name, status, adPosition, adType,ruleId,
+        remark, updateTime, createTime,weight,url
+        from rtdb_adv where 1=1
+        <if test="id !=null and id != ''">
+            and id like CONCAT('%',#{id},'%')
+        </if>
+        <if test="name!=null and name != ''">
+            AND name like CONCAT('%',#{name},'%')
+        </if>
+        order by createTime desc
+    </select>
+
+</mapper>

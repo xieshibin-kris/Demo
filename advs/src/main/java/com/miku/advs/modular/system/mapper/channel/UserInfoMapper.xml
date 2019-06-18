@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.channel.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.channel.UserInfo">
+    <id column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="mobileNo" jdbcType="VARCHAR" property="mobileno" />
+    <result column="QQ" jdbcType="VARCHAR" property="qq" />
+    <result column="payee" jdbcType="VARCHAR" property="payee" />
+    <result column="cardNo" jdbcType="VARCHAR" property="cardno" />
+    <result column="bankNo" jdbcType="VARCHAR" property="bankno" />
+    <result column="bankName" jdbcType="VARCHAR" property="bankname" />
+    <result column="bankType" jdbcType="VARCHAR" property="banktype" />
+    <result column="certificatesId" jdbcType="INTEGER" property="certificatesid" />
+    <result column="roleId" jdbcType="INTEGER" property="roleid" />
+    <result column="passwd" jdbcType="VARCHAR" property="passwd" />
+    <result column="parentUserId" jdbcType="INTEGER" property="parentuserid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="rate" jdbcType="REAL" property="rate" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="startNum" jdbcType="INTEGER" property="startnum" />
+    <result column="type" jdbcType="SMALLINT" property="type" />
+    <result column="percent" jdbcType="REAL" property="percent" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rtdb_userinfo
+    where userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.channel.UserInfo">
+    insert into rtdb_userinfo (userId, userName, email, 
+      nickName, mobileNo, QQ, 
+      payee, cardNo, bankNo, 
+      bankName, bankType, certificatesId, 
+      roleId, passwd, parentUserId, 
+      status, createTime, rate, 
+      price, startNum, type, 
+      percent)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{mobileno,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{payee,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, #{bankno,jdbcType=VARCHAR}, 
+      #{bankname,jdbcType=VARCHAR}, #{banktype,jdbcType=VARCHAR}, #{certificatesid,jdbcType=INTEGER}, 
+      #{roleid,jdbcType=INTEGER}, #{passwd,jdbcType=VARCHAR}, #{parentuserid,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{rate,jdbcType=REAL}, 
+      #{price,jdbcType=REAL}, #{startnum,jdbcType=INTEGER}, #{type,jdbcType=SMALLINT}, 
+      #{percent,jdbcType=REAL})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.channel.UserInfo">
+    update rtdb_userinfo
+    set userName = #{username,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      nickName = #{nickname,jdbcType=VARCHAR},
+      mobileNo = #{mobileno,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      payee = #{payee,jdbcType=VARCHAR},
+      cardNo = #{cardno,jdbcType=VARCHAR},
+      bankNo = #{bankno,jdbcType=VARCHAR},
+      bankName = #{bankname,jdbcType=VARCHAR},
+      bankType = #{banktype,jdbcType=VARCHAR},
+      certificatesId = #{certificatesid,jdbcType=INTEGER},
+      roleId = #{roleid,jdbcType=INTEGER},
+      passwd = #{passwd,jdbcType=VARCHAR},
+      parentUserId = #{parentuserid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      rate = #{rate,jdbcType=REAL},
+      price = #{price,jdbcType=REAL},
+      startNum = #{startnum,jdbcType=INTEGER},
+      type = #{type,jdbcType=SMALLINT},
+      percent = #{percent,jdbcType=REAL}
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select userId, userName, email, nickName, mobileNo, QQ, payee, cardNo, bankNo, bankName, 
+    bankType, certificatesId, roleId, passwd, parentUserId, status, createTime, rate, 
+    price, startNum, type, percent
+    from rtdb_userinfo
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select userId, userName, email, nickName, mobileNo, QQ, payee, cardNo, bankNo, bankName, 
+    bankType, certificatesId, roleId, passwd, parentUserId, status, createTime, rate, 
+    price, startNum, type, percent
+    from rtdb_userinfo
+  </select>
+</mapper>

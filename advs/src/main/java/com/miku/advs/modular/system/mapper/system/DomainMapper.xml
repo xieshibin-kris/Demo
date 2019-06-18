@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.system.DomainMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.system.Domain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+      <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rtdb_domain
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.system.Domain">
+    insert into rtdb_domain (id, name, remark, 
+      active, url,create_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{active,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.system.Domain">
+    update rtdb_domain
+    set name = #{name,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      active = #{active,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, name, remark, active, create_time,url
+    from rtdb_domain
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultType="map">
+    select id, name, remark, active, create_time as createTime,url
+    from rtdb_domain where 1=1
+    <if test="status!=null">
+      and active = 1
+    </if>
+  </select>
+  <select id="selectDomainList" resultMap="BaseResultMap">
+    select id, name, remark, active, create_time as createTime,url
+    from rtdb_domain where 1=1
+    <if test="status!=null">
+      and active = 1
+    </if>
+  </select>
+</mapper>

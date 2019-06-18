@@ -1,0 +1,52 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/channel/channel_sub/channel_sub_add.js"]}){
+<form id="advForm" lay-filter="advForm" class="layui-form model-form">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">父渠道<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <select name="parentid" lay-filter="channelid" lay-verify="required">
+                <option value="">请选择父渠道</option>
+                @for(item in channelList){
+                <option value="${item.id}">${item.name}-${item.id}</option>
+                @}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">包名<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <select name="packageid" lay-filter="packageid" lay-verify="required">
+                <option value="">请选择包名</option>
+                @for(item in packages){
+                <option value="${item.id}">${item.pakage}</option>
+                @}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">子渠道名称<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="name" lay-verify="required" placeholder="" type="text" class="layui-input" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <select name="active" lay-filter="active" lay-verify="required">
+                <option value="1">可用</option>
+                <option value="0">不可用</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注 </label>
+        <div class="layui-input-block">
+            <input name="remark" placeholder="" type="text" class="layui-input" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+</form>
+@}

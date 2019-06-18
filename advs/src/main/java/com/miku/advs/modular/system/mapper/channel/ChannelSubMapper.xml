@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.channel.ChannelSubMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.channel.ChannelSub">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="parentId" jdbcType="INTEGER" property="parentid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="active" jdbcType="SMALLINT" property="active" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createTime" jdbcType="BIGINT" property="createtime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rtdb_channel_sub
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.channel.ChannelSub">
+    insert into rtdb_channel_sub ( parentId,packageId, name,
+      active, remark, createTime
+      )
+    values (  #{parentid,jdbcType=INTEGER}, #{packageid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+      #{active,jdbcType=SMALLINT}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.channel.ChannelSub">
+    update rtdb_channel_sub
+    set parentId = #{parentid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      active = #{active,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, parentId, name, active, remark, createTime
+    from rtdb_channel_sub
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultType="map">
+    select id, parentId, packageId,name, active, remark, createTime
+    from rtdb_channel_sub where 1=1
+    <if test="channelId != null and channelId != 0">
+      and id=#{channelId}
+    </if>
+    <if test="channelName != null and channelName != ''">
+      and name like concat('%',#{channelName},'%')
+    </if>
+    order by createTime desc
+  </select>
+  <select id="selectActiveChannels" resultMap="BaseResultMap">
+    select id, parentId, packageId,name, active, remark, createTime
+    from rtdb_channel_sub where active = 1 order by createTime desc
+  </select>
+</mapper>

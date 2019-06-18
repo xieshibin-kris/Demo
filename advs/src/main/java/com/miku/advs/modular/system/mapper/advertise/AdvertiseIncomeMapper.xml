@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.advertise.AdvertiseIncomeMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.advertise.AdvertiseIncome">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="advertiseId" jdbcType="VARCHAR" property="advertiseid" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="predictIncome" jdbcType="DECIMAL" property="predictincome" />
+    <result column="realIncome" jdbcType="DECIMAL" property="realincome" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createTime" jdbcType="BIGINT" property="createtime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from rtdb_adv_income
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.advertise.AdvertiseIncome">
+    insert into rtdb_adv_income ( channelId, advertiseId, date,
+      predictIncome, realIncome, remark, 
+      createTime)
+    values (  #{channelid,jdbcType=INTEGER},#{advertiseid,jdbcType=VARCHAR}, #{date,jdbcType=DATE},
+      #{predictincome,jdbcType=DECIMAL}, #{realincome,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.advertise.AdvertiseIncome">
+    update rtdb_adv_income
+    set
+      predictIncome = #{predictincome,jdbcType=DECIMAL},
+      realIncome = #{realincome,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, advertiseId,channelId, date, predictIncome, realIncome, remark, createTime
+    from rtdb_adv_income
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultType="map">
+    select id, advertiseId,channelId, date, predictIncome, realIncome, remark, createTime
+    from rtdb_adv_income
+    where 1=1
+    <if test="channelId != null and channelId != 0">
+      and channelId = #{channelId}
+    </if>
+    <if test="advertiseId != null and advertiseId != ''">
+      and advertiseId like CONCAT('%',#{advertiseId},'%')
+    </if>
+    <if test="startDate != null and startDate != ''">
+      and date >= #{startDate}
+    </if>
+    <if test="endDate != null and endDate != ''">
+      and date &lt;= #{endDate}
+    </if>
+  </select>
+</mapper>

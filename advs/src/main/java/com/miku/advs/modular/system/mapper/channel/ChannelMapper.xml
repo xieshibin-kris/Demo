@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.channel.ChannelMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.channel.Channel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="active" jdbcType="SMALLINT" property="active" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rtdb_channel
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.channel.Channel">
+    insert into rtdb_channel (  name, active,
+      remark, createTime )
+    values (   #{name,jdbcType=VARCHAR},
+      #{active }, #{remark }, #{ createTime} )
+  </insert>
+
+  <update id="updateStatus" >
+    update rtdb_channel set  active = #{status,jdbcType=INTEGER} where id = #{channelId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, active,  remark, createTime
+    from rtdb_channel where active = 1
+  </select>
+
+  <select id="selectAlls" resultType="map">
+    select id, name, active,  remark, createTime
+    from rtdb_channel
+    where (active = 0 or active = 1)
+    <if test="channelId != null and channelId != 0">
+      and id=#{channelId}
+    </if>
+    <if test="channelName != null and channelName != ''">
+      and name like concat('%',#{channelName},'%')
+    </if>
+    order by createTime  DESC
+  </select>
+</mapper>

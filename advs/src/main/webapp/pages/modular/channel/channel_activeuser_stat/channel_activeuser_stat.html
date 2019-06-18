@@ -1,0 +1,57 @@
+@layout("/common/_container.html",{ js:["/assets/modular/channel/channel_activeuser_stat/channel_activeuser_stat.js"]}){
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">渠道用户日统计</span>
+</div>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form toolbar">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <select id="channelId"  lay-filter="channelId">
+                                    <option value="">子渠道</option>
+                                    @for(item in channelSubList){
+                                    <option value="${item.id}">${item.name} </option>
+                                    @}
+                                </select>
+                            </div>
+                            <div class="layui-inline">
+                                <select id="parentId"  lay-filter="channelId">
+                                    <option value="">父渠道</option>
+                                    @for(item in channelList){
+                                    <option value="${item.id}">${item.name} </option>
+                                    @}
+                                </select>
+                            </div>
+                            <div class="layui-inline">
+                                <select id="packageId"  lay-filter="channelId">
+                                    <option value="">包名</option>
+                                    @for(item in packageList){
+                                    <option value="${item.id}">${item.pakage} </option>
+                                    @}
+                                </select>
+                            </div>
+                           <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <input id="dateParam"  type="text" class="layui-input"  placeholder=" 日期范围 " autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                <button id="btnExp" class="layui-btn icon-btn"><i class="layui-icon">&#xe67d;</i>导出</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="layui-table" id="advTable" lay-filter="advTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.system.CountryMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.system.Country">
+    <id column="id" jdbcType="SMALLINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="zh_name" jdbcType="VARCHAR" property="zhName" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="code2" jdbcType="VARCHAR" property="code2" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from rtdb_dict_country
+    where id = #{id,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.system.Country">
+    insert into rtdb_dict_country (id, name, zh_name, 
+      code, code2)
+    values (#{id,jdbcType=SMALLINT}, #{name,jdbcType=VARCHAR}, #{zhName,jdbcType=VARCHAR}, 
+      #{code,jdbcType=VARCHAR}, #{code2,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.system.Country">
+    update rtdb_dict_country
+    set name = #{name,jdbcType=VARCHAR},
+      zh_name = #{zhName,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      code2 = #{code2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=SMALLINT}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select id, name, zh_name, code, code2
+    from rtdb_dict_country
+    where id = #{id,jdbcType=SMALLINT}
+  </select>
+
+  <select id="selectByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, name, zh_name, code, code2
+    from rtdb_dict_country
+    where code = #{code }
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, zh_name, code, code2
+    from rtdb_dict_country
+  </select>
+</mapper>

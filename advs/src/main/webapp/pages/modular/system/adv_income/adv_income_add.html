@@ -1,0 +1,39 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/system/adv_income/adv_income_add.js"]}){
+<form id="advForm" lay-filter="advForm" class="layui-form model-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告ID<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="advertiseid" lay-verify="required" placeholder="" type="text" class="layui-input" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">日期<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="date" lay-verify="required"  type="text" class="layui-input" id="date" autocomplete="off">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">预估收益<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="predictincome" lay-verify="required|number" placeholder="" type="text" class="layui-input" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">实际收益<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="realincome" lay-verify="required|number" placeholder="" type="text" class="layui-input" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注 </label>
+        <div class="layui-input-block">
+            <input name="remark" placeholder="" type="text" class="layui-input" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+</form>
+@}

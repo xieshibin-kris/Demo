@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.channel.ChannelIncomeStatMapper">
+    <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.channel.ChannelIncomeStat">
+        <id column="date" jdbcType="DATE" property="date"/>
+        <id column="channelId" jdbcType="INTEGER" property="channelid"/>
+        <result column="predictIncome" jdbcType="DECIMAL" property="predictincome"/>
+        <result column="realIncome" jdbcType="DECIMAL" property="realincome"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="createTime" jdbcType="BIGINT" property="createtime"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from rtdb_channel_income_date_stat
+    where date = #{date,jdbcType=DATE}
+      and channelId = #{channelid,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.miku.advs.modular.system.entity.channel.ChannelIncomeStat">
+    insert into rtdb_channel_income_date_stat (date, channelId, predictIncome, 
+      realIncome, remark, createTime
+      )
+    values (#{date,jdbcType=DATE}, #{channelid,jdbcType=INTEGER}, #{predictincome,jdbcType=DECIMAL}, 
+      #{realincome,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}
+      )
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.channel.ChannelIncomeStat">
+    update rtdb_channel_income_date_stat
+    set predictIncome = #{predictincome,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR}
+    where date = #{date }
+      and channelId = #{channelid,jdbcType=INTEGER}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select date, channelId, predictIncome, realIncome, remark, createTime
+    from rtdb_channel_income_date_stat
+    where date = #{date }
+      and channelId = #{channelid,jdbcType=INTEGER}
+  </select>
+    <select id="selectAll" resultType="map">
+        select date, channelId,packageId,parentId, predictIncome, realIncome, s.remark, s.createTime
+        from rtdb_channel_income_date_stat s inner join rtdb_channel_sub c on s.channelId = c.id
+        where 1=1
+        <if test="channelId != null and channelId != 0">
+            and channelId = #{channelId,jdbcType=INTEGER}
+        </if>
+        <if test="parentId != null and parentId != 0">
+            and parentId = #{parentId,jdbcType=INTEGER}
+        </if>
+        <if test="packageId != null and packageId != 0">
+            and packageId = #{packageId,jdbcType=INTEGER}
+        </if>
+        <if test="startDate != null and startDate != ''">
+            and date >= #{startDate }
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and date &lt;= #{endDate }
+        </if>
+        order by createTime desc
+    </select>
+</mapper>

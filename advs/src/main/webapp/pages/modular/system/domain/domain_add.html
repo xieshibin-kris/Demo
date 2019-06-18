@@ -1,0 +1,36 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/system/domain/domain_add.js"]}){
+<form id="userForm" lay-filter="userForm" class="layui-form model-form">
+    <input name="userId" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称：<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="name" placeholder="请输入名称" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">域名地址：</label>
+        <div class="layui-input-block">
+            <input id="url" name="url" placeholder="请输入域名" type="text" class="layui-input" autocomplete="off"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <select name="active" lay-filter="active" lay-verify="required" required>
+                <option value="1">可用</option>
+                <option value="2">不可用</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <input name="remark" placeholder="请输入备注" type="text" class="layui-input"/>
+        </div>
+    </div>
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+</form>
+@}

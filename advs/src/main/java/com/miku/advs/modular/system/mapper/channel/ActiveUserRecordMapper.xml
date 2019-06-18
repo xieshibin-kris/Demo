@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.channel.ActiveUserRecordMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.channel.ActiveUserRecord">
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="channelId" jdbcType="INTEGER" property="channelid" />
+    <result column="channelSubId" jdbcType="INTEGER" property="channelsubid" />
+    <result column="createTime" jdbcType="BIGINT" property="createtime" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from rtdb_active_user${tableName}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.channel.ActiveUserRecord">
+    insert into rtdb_active_user${tableName} (  uuid, channelId,
+      channelSubId, createTime)
+    values ( #{uuid,jdbcType=VARCHAR}, #{channelid,jdbcType=INTEGER},
+      #{channelsubid,jdbcType=INTEGER}, #{createtime,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.channel.ActiveUserRecord">
+    update rtdb_active_user${tableName}
+    set
+      channelId = #{channelid,jdbcType=INTEGER},
+      channelSubId = #{channelsubid,jdbcType=INTEGER},
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  uuid, channelId, channelSubId, createTime
+    from rtdb_active_user${tableName}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select  uuid, channelId, channelSubId, createTime
+    from rtdb_active_user${tableName}
+  </select>
+
+  <select id="getActiveUserCount"  resultType="map">
+    select count(1) as count
+    from rtdb_active_user${tableName}
+    where 1=1
+    <if test="channelId != null and channelId != 0">
+      and channelId = #{channelId}
+    </if>
+    <if test="startTime != null and startTime != 0">
+      and createTime >= #{startTime}
+    </if>
+    <if test="endTime != null and endTime != 0">
+      and createTime &lt;= #{endTime}
+    </if>
+  </select>
+</mapper>

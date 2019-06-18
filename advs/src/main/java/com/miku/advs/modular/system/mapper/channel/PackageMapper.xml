@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miku.advs.modular.system.mapper.channel.PackageMapper">
+  <resultMap id="BaseResultMap" type="com.miku.advs.modular.system.entity.channel.Package">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pakage" jdbcType="VARCHAR" property="pakage" />
+    <result column="appName" jdbcType="VARCHAR" property="appname" />
+    <result column="isDecrypt" jdbcType="INTEGER" property="isdecrypt" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="startType" jdbcType="INTEGER" property="starttype" />
+    <result column="startEntrance" jdbcType="VARCHAR" property="startentrance" />
+    <result column="installFile" jdbcType="INTEGER" property="installfile" />
+    <result column="weigth" jdbcType="INTEGER" property="weigth" />
+    <result column="downCount" jdbcType="INTEGER" property="downcount" />
+    <result column="downStatus" jdbcType="INTEGER" property="downstatus" />
+    <result column="openBeginHour" jdbcType="INTEGER" property="openbeginhour" />
+    <result column="openEndHour" jdbcType="INTEGER" property="openendhour" />
+    <result column="shieldTime" jdbcType="VARCHAR" property="shieldtime" />
+    <result column="isWifi" jdbcType="INTEGER" property="iswifi" />
+    <result column="isImsi" jdbcType="INTEGER" property="isimsi" />
+    <result column="secondStart" jdbcType="INTEGER" property="secondstart" />
+    <result column="secondStartCnt" jdbcType="INTEGER" property="secondstartcnt" />
+    <result column="sdkVersion" jdbcType="VARCHAR" property="sdkversion" />
+    <result column="provider" jdbcType="INTEGER" property="provider" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="downHourCount" jdbcType="INTEGER" property="downhourcount" />
+    <result column="runAgain" jdbcType="BIT" property="runagain" />
+    <result column="runShieldTime" jdbcType="VARCHAR" property="runshieldtime" />
+    <result column="runTimes" jdbcType="INTEGER" property="runtimes" />
+    <result column="runTimeLimit" jdbcType="INTEGER" property="runtimelimit" />
+    <result column="runTaskDay" jdbcType="INTEGER" property="runtaskday" />
+    <result column="runWay" jdbcType="VARCHAR" property="runway" />
+    <result column="newUserEffective" jdbcType="INTEGER" property="newusereffective" />
+    <result column="elfVerLimit" jdbcType="VARCHAR" property="elfverlimit" />
+    <result column="isForceSys" jdbcType="BIT" property="isforcesys" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rtdb_installappinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miku.advs.modular.system.entity.channel.Package">
+    insert into rtdb_installappinfo (id, pakage, appName, 
+      isDecrypt, version, url, 
+      info, startType, startEntrance, 
+      installFile, weigth, downCount, 
+      downStatus, openBeginHour, openEndHour, 
+      shieldTime, isWifi, isImsi, 
+      secondStart, secondStartCnt, sdkVersion, 
+      provider, userId, createTime, 
+      downHourCount, runAgain, runShieldTime, 
+      runTimes, runTimeLimit, runTaskDay, 
+      runWay, newUserEffective, elfVerLimit, 
+      isForceSys)
+    values (#{id,jdbcType=INTEGER}, #{pakage,jdbcType=VARCHAR}, #{appname,jdbcType=VARCHAR}, 
+      #{isdecrypt,jdbcType=INTEGER}, #{version,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{info,jdbcType=VARCHAR}, #{starttype,jdbcType=INTEGER}, #{startentrance,jdbcType=VARCHAR}, 
+      #{installfile,jdbcType=INTEGER}, #{weigth,jdbcType=INTEGER}, #{downcount,jdbcType=INTEGER}, 
+      #{downstatus,jdbcType=INTEGER}, #{openbeginhour,jdbcType=INTEGER}, #{openendhour,jdbcType=INTEGER}, 
+      #{shieldtime,jdbcType=VARCHAR}, #{iswifi,jdbcType=INTEGER}, #{isimsi,jdbcType=INTEGER}, 
+      #{secondstart,jdbcType=INTEGER}, #{secondstartcnt,jdbcType=INTEGER}, #{sdkversion,jdbcType=VARCHAR}, 
+      #{provider,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{downhourcount,jdbcType=INTEGER}, #{runagain,jdbcType=BIT}, #{runshieldtime,jdbcType=VARCHAR}, 
+      #{runtimes,jdbcType=INTEGER}, #{runtimelimit,jdbcType=INTEGER}, #{runtaskday,jdbcType=INTEGER}, 
+      #{runway,jdbcType=VARCHAR}, #{newusereffective,jdbcType=INTEGER}, #{elfverlimit,jdbcType=VARCHAR}, 
+      #{isforcesys,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.miku.advs.modular.system.entity.channel.Package">
+    update rtdb_installappinfo
+    set pakage = #{pakage,jdbcType=VARCHAR},
+      appName = #{appname,jdbcType=VARCHAR},
+      isDecrypt = #{isdecrypt,jdbcType=INTEGER},
+      version = #{version,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR},
+      startType = #{starttype,jdbcType=INTEGER},
+      startEntrance = #{startentrance,jdbcType=VARCHAR},
+      installFile = #{installfile,jdbcType=INTEGER},
+      weigth = #{weigth,jdbcType=INTEGER},
+      downCount = #{downcount,jdbcType=INTEGER},
+      downStatus = #{downstatus,jdbcType=INTEGER},
+      openBeginHour = #{openbeginhour,jdbcType=INTEGER},
+      openEndHour = #{openendhour,jdbcType=INTEGER},
+      shieldTime = #{shieldtime,jdbcType=VARCHAR},
+      isWifi = #{iswifi,jdbcType=INTEGER},
+      isImsi = #{isimsi,jdbcType=INTEGER},
+      secondStart = #{secondstart,jdbcType=INTEGER},
+      secondStartCnt = #{secondstartcnt,jdbcType=INTEGER},
+      sdkVersion = #{sdkversion,jdbcType=VARCHAR},
+      provider = #{provider,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      downHourCount = #{downhourcount,jdbcType=INTEGER},
+      runAgain = #{runagain,jdbcType=BIT},
+      runShieldTime = #{runshieldtime,jdbcType=VARCHAR},
+      runTimes = #{runtimes,jdbcType=INTEGER},
+      runTimeLimit = #{runtimelimit,jdbcType=INTEGER},
+      runTaskDay = #{runtaskday,jdbcType=INTEGER},
+      runWay = #{runway,jdbcType=VARCHAR},
+      newUserEffective = #{newusereffective,jdbcType=INTEGER},
+      elfVerLimit = #{elfverlimit,jdbcType=VARCHAR},
+      isForceSys = #{isforcesys,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, pakage, appName, isDecrypt, version, url, info, startType, startEntrance, 
+    installFile, weigth, downCount, downStatus, openBeginHour, openEndHour, shieldTime, 
+    isWifi, isImsi, secondStart, secondStartCnt, sdkVersion, provider, userId, createTime, 
+    downHourCount, runAgain, runShieldTime, runTimes, runTimeLimit, runTaskDay, runWay, 
+    newUserEffective, elfVerLimit, isForceSys
+    from rtdb_installappinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, pakage, appName,version, url, createTime
+    from rtdb_installappinfo
+  </select>
+</mapper>

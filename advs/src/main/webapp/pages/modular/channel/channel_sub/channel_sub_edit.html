@@ -1,0 +1,36 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/channel/channel_sub/channel_sub_edit.js"]}){
+<form id="advForm" lay-filter="advForm" class="layui-form model-form" xmlns:s="http://www.w3.org/1999/html">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">子渠道ID<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input  name="id" lay-verify="required " placeholder="" readonly type="text" class="layui-input" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">子渠道名称<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="name" lay-verify="required" type="text" class="layui-input"   autocomplete="off">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <select name="active" lay-filter="active" lay-verify="required">
+                <option value="1">可用</option>
+                <option value="0">不可用</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注 </label>
+        <div class="layui-input-block">
+            <input id="remark" name="remark" placeholder="" type="text" class="layui-input" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+</form>
+@}

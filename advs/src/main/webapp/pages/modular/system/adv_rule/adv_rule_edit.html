@@ -1,0 +1,78 @@
+@layout("/common/_container.html",{bg:"bg-white",all:"yes",js:["/assets/modular/system/adv_rule/adv_rule_edit.js"]}){
+
+<link rel="stylesheet" href="${ctxPath}/assets/common/module/formSelects/formSelects-v4.css"/>
+
+<form id="advRuleForm" lay-filter="advRuleForm" class="layui-form model-form" xmlns:s="http://www.w3.org/1999/html">
+    <div class="layui-form-item">
+        <label class="layui-form-label">规则ID<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="id" type="text" readonly class="layui-input" lay-verify="required" required
+                   autocomplete="off"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">日展示次数<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="dayshowcount" type="text" class="layui-input" lay-verify="required|number" required
+                   autocomplete="off"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">展示时间<span style="color: red;">*</span></label>
+        <div class="layui-input-block" >
+            @for(item in timeList){
+                @if(adv.timerange!=null&&strutil.contain(adv.timerange,item)){
+                <input type="checkbox" checked name="timerange" value="${item}" title="${item}:00:00">
+                @} else {
+                <input type="checkbox" name="timerange" value="${item}" title="${item}:00:00">
+                @}
+            @}
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排除国家</label>
+        <div class="layui-input-block">
+            <select name="country" lay-filter="ruleid" xm-select="countrySelect" xm-select-skin="defined">
+                <option value="">请选择国家</option>
+                @for(item in countryList){
+                @if(adv.country!=null && strutil.contain(adv.country,item.zhName )){
+                <option value="${item.zhName}" selected>${item.name}-${item.zhName}-${item.code}</option>
+                @} else {
+                <option value="${item.zhName}">${item.name}-${item.zhName}-${item.code}</option>
+                @}
+                @}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 90px;padding:9px 10px;">排除系统版本 </label>
+        <div class="layui-input-block">
+            <select name="version" lay-filter="ruleid" xm-select="versionSelect" xm-select-skin="defined">
+                <option value="">请选择版本</option>
+                @for(item in versionList){
+                @if(adv.version!=null && strutil.contain(adv.version,item.key+'')){
+                <option value="${item.key}" selected>${item.value}-${item.key}</option>
+                @} else {
+                <option value="${item.key}">${item.value}-${item.key}</option>
+                @}
+                @}
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注 </label>
+        <div class="layui-input-block">
+            <input name="remark" placeholder="" type="text" class="layui-input" autocomplete="off"/>
+        </div>
+    </div>
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+</form>
+
+<script type="text/javascript" src="${ctxPath}/assets/common/layui/layui.all.js"></script>
+<script src="${ctxPath}/assets/common/module/formSelects/formSelects-v4.js" type="text/javascript"
+        charset="utf-8"></script>
+@}
